@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import org.glassfish.jersey.server.ChunkedOutput;
 
 /**
- * Root resource (exposed at "statictweets" path)
+ * Root resource (exposed at "statictweets" path) 
  */
 @Path("statictweets")
 public class StaticTweets {
