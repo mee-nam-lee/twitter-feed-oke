@@ -23,7 +23,6 @@ spec:
         ports:
         - name: twitter-feed
           containerPort: 8080
-          protocol: TCP
         volumeMounts:
           - name: podinfo
             mountPath: /tmp
