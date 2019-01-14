@@ -22,7 +22,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: twitter-feed
-          containerPort: 8080
+          containerPort: 9080
         volumeMounts:
           - name: podinfo
             mountPath: /tmp
@@ -40,13 +40,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: twitter-feed
+  name: twitter-feed-istio
   labels:
     app: twitter-feed
     commit: ${WERCKER_GIT_COMMIT}
 spec:
   ports:
-  - port: 8080
+  - port: 9080
     name: http
   selector:
     app: twitter-feed
