@@ -2,40 +2,20 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: twitter-feed-v1
-  labels:
-    commit: ${WERCKER_GIT_COMMIT}
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: twitter-feed
   template:
     metadata:
       labels:
         app: twitter-feed
-        commit: ${WERCKER_GIT_COMMIT}
-        color: blue
+        versioin: v1
     spec:
       containers:
       - name: twitter-feed
         image: $DOCKER_REPO:$WERCKER_GIT_COMMIT
         imagePullPolicy: Always
         ports:
-        - name: twitter-feed
-          containerPort: $PORT
-        volumeMounts:
-          - name: podinfo
-            mountPath: /tmp
-            readOnly: false
-      volumes:
-        - name: podinfo
-          downwardAPI:
-            items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-      imagePullSecrets:
-        - name: $OKE_IMAGESECRET
+        - containerPort: $PORT
 ---
 apiVersion: v1
 kind: Service
@@ -43,12 +23,10 @@ metadata:
   name: twitter-feed-istio
   labels:
     app: twitter-feed
-    commit: ${WERCKER_GIT_COMMIT}
 spec:
   ports:
   - port: $PORT
     name: http
   selector:
     app: twitter-feed
-    color: blue
 ---
